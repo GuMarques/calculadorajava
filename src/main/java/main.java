@@ -11,23 +11,35 @@ class Main {
     String userInput = "";
     double accumaletedValue = 0.0;
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    System.out.println(calculator.calculate("20*10/2"));
-    // while(userInput != "e") {
-    //   System.out.println("Enter e to exit");
-    //   System.out.println("Enter ce to clean the calculator");
-    //   System.out.println("Or Enter a expression to calculate");
-    //   userInput = reader.readLine();
-    //   switch(userInput) {
-    //     case "e":
-    //       break;
-    //     case "ce":
-    //       accumaletedValue = 0.0;
-    //       break;
-    //     default:
-    //       accumaletedValue = calculator.calc(userInput);
-    //       System.out.println(userInput + " = " + accumaletedValue);
-    //       break;
-    //   }
-    // }
+    boolean flag = true;
+    while(flag) {
+      System.out.println("ce to clean \t c to exit");
+      System.out.print("Expression: ");
+      userInput = reader.readLine();
+      switch (userInput) {
+        case "ce":
+          accumaletedValue = 0.0;
+          System.out.println(accumaletedValue);
+          break;
+        case "c":
+          flag = false;
+          break;
+        default:
+          if(accumaletedValue == 0.0) {
+            accumaletedValue = calculator.calculate(userInput);
+            System.out.println(userInput + " = " + accumaletedValue + "\n");
+          } else {
+            if(calculator.isOperator(userInput.charAt(0))) {
+              String calc = accumaletedValue + userInput;
+              accumaletedValue = calculator.calculate(calc);
+              System.out.println(calc + " = " + accumaletedValue + "\n");
+            } else {
+              accumaletedValue = calculator.calculate(userInput);
+              System.out.println(userInput + " = " + accumaletedValue + "\n");
+            }
+          }
+          break;
+      }
+    }
   }
 }
